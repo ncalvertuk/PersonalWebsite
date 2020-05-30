@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Dr Nick Calvert</title>
-    <link>https://vigilant-euler-ae75f1.netlify.app/</link>
-    <description>Recent content on Dr Nick Calvert</description>
+    <title>Posts on Dr Nick Calvert</title>
+    <link>https://vigilant-euler-ae75f1.netlify.app/posts/</link>
+    <description>Recent content in Posts on Dr Nick Calvert</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 May 2020 13:35:00 +0100</lastBuildDate>
     
-	<atom:link href="https://vigilant-euler-ae75f1.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://vigilant-euler-ae75f1.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>About</title>
-      <link>https://vigilant-euler-ae75f1.netlify.app/about/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://vigilant-euler-ae75f1.netlify.app/about/</guid>
-      <description>I created this blog as a platform to share my interests and projects that I am working on in my own time.</description>
-    </item>
     
     <item>
       <title>The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries</title>

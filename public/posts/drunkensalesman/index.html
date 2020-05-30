@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo 0.69.2" />
+
+  <title>The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries &middot; Dr Nick Calvert</title>
+
+  <meta name="description" content="" />
+
+  
+  <meta property="og:locale" content="en-us"/>
+
+  
+  <meta property="og:image" content="https://vigilant-euler-ae75f1.netlify.app/images/ProfilePhoto_crop.jpg">
+
+  
+  <meta property="og:type" content="blog"/>
+  <meta property="og:site_name" content="Dr Nick Calvert"/><meta property="og:title" content="The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries"/>
+  <meta property="og:url" content="https://vigilant-euler-ae75f1.netlify.app/posts/drunkensalesman/"/>
+  <meta property="og:description" content="Introduction Note: In England in 2018/19 there were 1.26 million hospital admissions related to alcohol consumption, making up 7."/>
+
+  <script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "Blog",
+    "name": "Dr Nick Calvert",
+    "url" : "https://vigilant-euler-ae75f1.netlify.app/",
+    "image": "https://vigilant-euler-ae75f1.netlify.app/images/ProfilePhoto_crop.jpg",
+    "description": "Personal Website"
+  }
+  </script>
+
+  
+
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://vigilant-euler-ae75f1.netlify.app/css/print.css"
+        media="print">
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://vigilant-euler-ae75f1.netlify.app/css/poole.css">
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://vigilant-euler-ae75f1.netlify.app/css/hyde.css">
+
+  
+<style type="text/css">
+  .sidebar {
+    background-color: #900C3F;
+  }
+
+  .read-more-link a {
+    border-color: #900C3F;
+  }
+
+  footer a,
+  .content a,
+  .related-posts li a:hover {
+    color: #900C3F;
+  }
+</style>
+
+
+
+  <link type="text/css" rel="stylesheet" href="https://vigilant-euler-ae75f1.netlify.app/css/blog.css">
+
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+        crossorigin="anonymous" />
+
+  <link rel="apple-touch-icon-precomposed"
+        sizes="144x144"
+        href="/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  </head>
+<body>
+  <aside class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      
+        
+        <div class="author-image">
+          <img src="https://vigilant-euler-ae75f1.netlify.app/images/ProfilePhoto_crop.jpg" class="img-circle img-headshot center" alt="Profile Picture">
+        </div>
+        
+      
+
+      <h1>Dr Nick Calvert</h1>
+
+      
+      <p class="lead">Personal Website</p>
+      
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="https://vigilant-euler-ae75f1.netlify.app/">Home</a>
+        </li>
+        <li>
+          <a href="/cv/cv.pdf"> CV </a>
+        </li><li>
+          <a href="/posts/"> Posts </a>
+        </li><li>
+          <a href="/about/"> About </a>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="social-icons">
+      
+      <a href="https://github.com/ncalvertuk" rel="me" title="GitHub">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      
+      <a href="https://www.linkedin.com/in/nickcalvert/" rel="me" title="Linkedin">
+        <i class="fab fa-linkedin" aria-hidden="true"></i>
+      </a>
+      
+    </section>
+  </div>
+</aside>
+
+
+  <main class="content container">
+  <div class="post">
+  <h1>The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries</h1>
+
+  <div class="post-date">
+    <time datetime="2020-04-28T13:53:02&#43;0100">Apr 28, 2020</time> · 13 min read
+  </div>
+
+  <h3 id="introduction">Introduction</h3>
+<p><strong>Note:</strong> In England in 2018/19 there were 1.26 million hospital admissions related to alcohol consumption, making up 7.4% of all hospital admissions. For more facts and support about alcohol check out the dedicated <a href="https://www.nhs.uk/live-well/alcohol-support/">NHS website</a> and please drink responsibly!</p>
+<p>I&rsquo;m a fan of craft beer. And coding. To combine these two I decided to apply the travelling salesperson problem to the brewery taprooms in Manchester, where I used to live, using a combination of <a href="https://maps.google.com/">Google Maps</a>, <a href="https://openrouteservice.org/">Openrouteservice</a>, <a href="https://www.python.org/">Python</a>, and <a href="https://julialang.org/">Julia</a>. If you want to skip all of the details on how I did this, then the final route can be found at the bottom of this post. The code from this post can be found <a href="https://github.com/ncalvertuk/DrunkenSalesman">here</a>.</p>
+<p>Before getting into the details of what I did, let&rsquo;s first define the <a href="https://www.theorsociety.com/about-or/or-methods/heuristics/a-brief-history-of-the-travelling-salesman-problem/">travelling salesperson problem</a></p>
+<blockquote>
+<p>Given a finite number of cities along with the cost of travel between each pair of them, and with the object of finding the cheapest way of visiting all the cities and returning the original point of departure</p>
+</blockquote>
+<p>and has been studied since the 1930&rsquo;s - understandable considering how useful the solution is!</p>
+<p>A mathematical formulation is:
+Given a set of $n$ cities to be visited with distance between cities $i$ and $j$ given by $c_{ij}$. Introduce $y_{ij}$ for each $(i,j)$ s.t.
+\begin{equation}
+y_{i,j} = \begin{cases}
+1 \quad \text{if city $j$ is visited immediately after $i$,}\newline
+0 \quad \text{otherwise.}\newline
+\end{cases}
+\end{equation}
+The objective function is then given by $\min \sum c_{ij}y_{ij}$, and we have the following constraints to ensure the solution is valid:
+\begin{align}
+\sum_{j} y_{ij} &amp;= 1, \quad i = 0,1,\dots,n-1\newline
+\sum_{i} y_{ij} &amp;= 1, \quad j = 0,1,\dots,n-1\newline
+\sum_{i}\sum_{j} y_{ij} &amp;\leq |S|-1 \quad S \subset V, 2\leq|S|\leq n-2,
+\end{align}
+where $G = (V,E)$ is the graph with vertices $V$ and edges $E$ and $S$ is the set of all tours of $G$. The travelling salesperson problem can be either symmetric $c_{ij} = c_{ji} \forall i,j$ or asymmetric where the equality does not hold.</p>
+<p>To compute all possible solutions and find the best is $\mathcal{O}(n!)$, which is intolerably slow, and therefore heuristic algorithms are typically used to find a &lsquo;good&rsquo; solution. A simple example of such an algorithm is the nearest neighbour algorithm, which simply chooses the nearest point to the previous chosen point to construct a path. This gives n different solutions as the initial point can be any of the &lsquo;cities&rsquo; in our problem. For certain arranged points this algorithm can actually return the worst possible solution, and therefore this may not be a great algorithm to use.</p>
+<p>The nearest neighbour is an example of a route construction algorithm: a solution is gradually built by adding a new city at each step. Other examples are the greedy algorithm, where a route is constructed by repeatedly selecting the shortest edge that does not create a loop within the route, and the cheapest insertion algorithm which starts with a subset of points and inserts a new point into the route between two consecutive points such that the length of the new route is minimised.</p>
+<p>Other heuristic algorithms can be classified as tour improvement algorithms: a feasible solution is gradually improved at each iteration by exchanging cities. The 2-opt algorithm randomly removes 2 edges from a route and then reconnects them in such a way that the route is still feasible (and the value of the objective function is reduced), continuing until no further improvements are possible. This can be generalised to the k-opt algorithm. For more details on the travelling salesperson problem you can check out this link from <a href="https://optimization.mccormick.northwestern.edu/index.php/Traveling_salesman_problems">Northwestern University</a>.</p>
+<h3 id="outline">Outline</h3>
+<p>Applying the travelling salesperson problem to the Manchester taprooms is a relatively straightforward procedure that can be split into the following steps:</p>
+<ol>
+<li>Find the geographic coordinates of the taprooms (Google Maps) and put them in a csv file.</li>
+<li>Find the walking time between each pair of locations (Python - Openrouteservice).</li>
+<li>Solve the TSP (Julia).</li>
+<li>Map the points and route (Python - Folium).</li>
+</ol>
+<p>You may be asking why I switched to Julia to solve the TSP before going back to Python? Unfortunately I could not get the algorithms I was using in Python to give me a good solution, despite a lot of attempts at tweaking the parameters of the optimisation algorithms I was using. Julia was also much faster at computing a solution and I&rsquo;d never used Julia before so it gave me an incentive to try out a new language. Unfortunately the Openrouteservice API has not been implemented in Julia, so I performed this in Python.</p>
+<h3 id="finding-the-coordinates">Finding the coordinates</h3>
+<p>The first step was to generate a list of taprooms in Manchester. I decided that the tour should begin and end at Piccadilly station, so I came up with 22 locations in total: Alphabet Brewing Company, Beatnikz Republic Brewery, Beatnikz Republic Bar, Beer Nouveau, BrewDog, BrewDog Outpost, Cloudwater, Gas Lamp (Pomona Island), Gasworks, Knott (Wander Beyond), Manchester Union, Marble Arch (Marble Beers), Northern Monk Refectory, Ol, Piccadilly Station, Runaway, Seven Bro7hers, Smithfield Market Tavern/Jack in the Box (Blackjack), Thomas St Beerhouse (Marble Beers), Track/Squawk. Most of these locations were picked based on my local knowledge however I also used this <a href="https://camragreatermanchester.org.uk/brewery-taps/">handy map</a>.</p>
+<!-- raw HTML omitted -->
+<p>A few notes on these: Smithfield Market Tavern &amp; Jack in the Box are located next door to each other and are therefore given as a single location, they&rsquo;re also operated by the same brewery. Track and Squawk are on the 3rd and 4th floor, respectively, of the same building and are therefore listed as a single location. At the time of writing, Track &amp; Squawk were both closed due to a problem with the building, but they have not been removed in anticipation of them reopening.</p>
+<p>Finding out the coordinates of these places was the most manual part of the process. I went in and searched for each place individually in Google Maps. To get the coordinates you can either drop a pin at the location (or very close to) using a long click on your mouse, or you can right click and click on &lsquo;What&rsquo;s here?'. It is possible to automate this using the <a href="https://developers.google.com/maps/documentation/geocoding/usage-and-billing">Google Maps Geocoding API</a> however there is a cost to this. Due to the small number of points I decided to use the manual method. Another option is to use the <a href="https://www.getthedata.com/open-postcode-geo-api">Open Postcode Geo API</a>, which returns coordinates based on postcodes. This is very simple and requires reading from a url. For example the following code shows how to use the API with the postcode for Piccadilly Station.</p>
+<pre><code>using HTTP
+using JSON
+postcode_json = JSON.parse(String(HTTP.get(&quot;http://api.getthedata.com/postcode/NG92LG&quot;).body))
+picc_lat = postcode_json[&quot;data&quot;][&quot;latitude&quot;]
+picc_lon = postcode_json[&quot;data&quot;][&quot;longitude&quot;]
+</code></pre><p>The downside of this is that I didn&rsquo;t know the postcodes of the locations in advance, and therefore searching for the postcodes or finding the coordinates on Google Maps took the same effort. The above is handy if the postcodes are known in advance, for example if you have a dataset containing post codes.</p>
+<p>Initially I used Google Sheets to store the csv files and then accessed this through Python using the method described <a href="https://towardsdatascience.com/accessing-google-spreadsheet-data-using-python-90a5bc214fd2">here</a>. This was very easy, however it requires a local copy of my API key and therefore I have saved the coordinates offline in a csv file that is provided with the code on github.</p>
+<h3 id="executing-python-calls-in-julia">Executing Python Calls in Julia</h3>
+<p>Julia has a very handy package called <a href="https://github.com/JuliaPy/PyCall.jl">PyCall</a> that provides the ability to directly call and interoperate with Python. This includes being able to import Python modules, call Python functions, define Python classes, and share large data structures between Python and Julia without copying them. I found this package very easy to setup, you have to set a few environment variables, and use. To import a Python module you use</p>
+<pre><code>using PyCall
+fol = pyimport(&quot;folium&quot;)
+</code></pre><p>You can then use the folium package, for example</p>
+<pre><code>m = fol.Map(tiles=&quot;OpenStreetMap&quot;,location=(median_lat, median_long), zoom_start=14)
+</code></pre><p>creates a map centred at (median_lat, median_long). I only used PyCall when I was unable to find a solution in native Julia. In this case I used it for making calls to Openrouteservice and for creating maps using folium.</p>
+<h3 id="calculating-the-distance-matrix">Calculating the Distance Matrix</h3>
+<p>The coordinates of the taprooms can easily be read into Julia using</p>
+<pre><code>csv_filename = &quot;Data/LatLon.csv&quot;
+csv_Data = CSV.read(csv_filename,header=true)
+</code></pre><p>and the next step is to calculate the distance matrix using Openrouteservice. The first step is to sign up and get an <a href="https://openrouteservice.org/dev/#/home">API key</a>. Once we&rsquo;ve imported the Openrouteservice modules into Julia using PyCall</p>
+<pre><code>ors = pyimport(&quot;openrouteservice&quot;)
+req = pyimport(&quot;requests&quot;)
+</code></pre><p>we can send routing requests. Note there are limits to how many requests you can make, however we will be well under this for our application. To send the routing requests and get the distance matrix we simply put our API keys in a header, put the coordinates in a body and use the following</p>
+<pre><code>call = req.post(&quot;https://api.openrouteservice.org/v2/matrix/foot-walking&quot;, json=body, headers=headers)
+data = call.json()
+dist_array = data[&quot;durations&quot;]
+</code></pre><p>In this case we are specifying that we are walking between locations and the distance array is returned with length of time to walk between each point. I have included an image of the distance array below. The values are in seconds to walk between each place and the diagonal values are all 0&rsquo;s.
+<img src="/images/DistanceArray.svg" alt="Distance Array"></p>
+<h3 id="calculating-the-optimal-route">Calculating the Optimal Route</h3>
+<p>I used the <a href="https://github.com/evanfields/TravelingSalesmanHeuristics.jl">TravelingSalesmanHeuristics</a> package for Julia. This takes as input a distance matrix and a quality factor, which determines what algorithms to use, and returns an approximation of the optimal path. A higher quality factor does not necessarily return a better solution than a lower quality factor but it will increase the computation time. Due to the relatively small size of my problem I decided to use the maximum quality factor. I did try changing this parameter, and there was a small difference in the value of the objective function, but the computation time was always much less than 1 second regardless, so I kept it at 100.</p>
+<p>How does this algorithm work? Looking at the code on github, the quality factor affects with algorithms to attempt. In all cases it starts with the <a href="https://www2.isye.gatech.edu/~mgoetsch/cali/VEHICLE/TSP/TSP015__.HTM">farthest insertion method</a>. This is a route construction method that generates a sub-tour adds the point that is furthest away from all points in the sub-tour and finds the optimal position for that point in the sub-tour until all points have been added.</p>
+<p>The algorithm then moves on to the nearest neighbour algorithm, it will either perform this repetitively, changing the initial location at each iteration, or only once. Setting the quality factor $\geq 60$ will also apply the 2-opt algorithm to the returned path at each iteration.  The algorithm then runs the furthest insertion again, this time either repeatedly with 2-opt, or a single time with 2-opt applied. The final route construction algorithm applied is the cheapest insertion algorithm, either repeatedly or a single time depending on the quality factor. Again the 2-opt method is applied in both cases. The final algorithm applied is the <a href="https://www.fourmilab.ch/documents/travelling/anneal/">simulated annealing</a> method, starting with the shortest route found so far. Subsections of the route are randomly chosen and reversed in order, if the cost is reduced then the new route is used. If the cost is increased then the route may still be chosen if the  exponential of its negative magnitude divided by the current temperature is greater than a uniformly distributed random number between 0 and 1. Initially the temperature is high and therefore the probability of accepting the new route is high, however the temperature decreases at each iteration following an exponential decay and therefore this probability reduces with increasing iteration number.</p>
+<p>The call to generate the route and time the algorithm is given below.</p>
+<pre><code>@time path, cost = solve_tsp(dist_array; quality_factor = 100)
+</code></pre><h3 id="failing-to-calculate-the-optimal-route-in-python">Failing to Calculate the Optimal Route in Python</h3>
+<p>I initiall wrote this code in Python and spent a long time trying and failing to estimate the optimal walking route using <a href="https://mlrose.readthedocs.io/en/stable/">mlrose</a> and <a href="https://developers.google.com/optimization/routing">Google OR-Tools</a>. Neither provided a solution that was close to optimal despite a significant amount of testing. I&rsquo;ve included the code below for both, I&rsquo;m sure there&rsquo;s an obvious reason why these did not work, however I could not fix it.</p>
+<pre><code># The mlrose method
+import mlrose
+fitness_dists = mlrose.TravellingSales(distances = dist_array)
+problem_fit = mlrose.TSPOpt(length = n_breweries, fitness_fn = fitness_dists,maximize=False)
+best_state, best_fitness,curve = mlrose.genetic_alg(problem_fit, mutation_prob = 0.2, max_attempts = 10, random_state = 2,pop_size = 1000, curve = True)
+</code></pre><pre><code># The ortools method, a little bit more involved
+from ortools.constraint_solver import routing_enums_pb2
+from ortools.constraint_solver import pywrapcp
+g_data_array = {}
+g_data_array['distance_matrix'] = distance_array*100
+g_data_array['num_vehicles'] = 1
+g_data_array['depot'] = 0
+manager = pywrapcp.RoutingIndexManager(len(g_data_array['distance_matrix']),
+                                           g_data_array['num_vehicles'], g_data_array['depot'])
+routing = pywrapcp.RoutingModel(manager)
+def distance_callback(from_index, to_index):
+        &quot;&quot;&quot;Returns the distance between the two nodes.&quot;&quot;&quot;
+        # Convert from routing variable Index to distance matrix NodeIndex.
+        from_node = manager.IndexToNode(from_index)
+        to_node = manager.IndexToNode(to_index)
+        return int(g_data_array['distance_matrix'][from_node][to_node])
+transit_callback_index = routing.RegisterTransitCallback(distance_callback)
+routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
+search_parameters = pywrapcp.DefaultRoutingSearchParameters()
+search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.AUTOMATIC)
+search_parameters.local_search_metaheuristic = (
+    routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH)
+search_parameters.time_limit.seconds = 30
+search_parameters.log_search = False
+assignment = routing.SolveWithParameters(search_parameters)
+</code></pre><h3 id="mapping-the-optimal-route">Mapping the Optimal Route</h3>
+<p>After calculating the optimal route order, I performed another call to Openrouteservice to get the walking directions of the route. The first step was to reorder the coordinates of the points so that they were in the optimal route, this performed using the <a href="https://docs.julialang.org/en/v1/base/collections/#Base.map">map function</a>. I then put these into a dictionary and made a directions call to the Openrouteservice (recall, last time I used a matrix call). Note that path_reorder is the optimal path reordered so that it starts and ends at Piccadilly Station.</p>
+<pre><code>optimal_coords = map((i,j)-&gt;(i,j),csv_Data.longitude[path_reorder],csv_Data.latitude[path_reorder])
+opt_body = Dict(&quot;coordinates&quot;=&gt;optimal_coords)
+call = req.post(&quot;https://api.openrouteservice.org/v2/directions/foot-walking/geojson&quot;, json=opt_body, headers=headers)
+data = call.json()
+println(&quot;Total Walking Time calculated using TSP = $(data[&quot;features&quot;][1][&quot;properties&quot;][&quot;summary&quot;][&quot;duration&quot;] / 60)&quot;)
+</code></pre><p>The directions, an array of coordinates marking every time a change in direction is required, is contained in <code>points_temp = data[&quot;features&quot;][1][&quot;geometry&quot;][&quot;coordinates&quot;]</code>. These can then be mapped to generate not only the optimal ordering but the optimal routing as well. To map the route I used the <a href="https://python-visualization.github.io/folium/">Folium</a> package in Python, calling it using PyCall as before. I did think of using the <a href="https://github.com/pszufe/OpenStreetMapX.jl">OpenStreetMapX</a> package built for Julia however this required downloading the section of the map that I needed, reducing the generalisability of the code, and it uses Folium anyway.</p>
+<p>I generated a map using Folium centred on the median coordinates of the points</p>
+<pre><code>m = fol.Map(tiles=&quot;OpenStreetMap&quot;,location=(median_lat, median_long), zoom_start=14)
+</code></pre><p>based on the <a href="https://www.openstreetmap.org">OpenStreetMap</a>. I then iterated through the locations and created an icon for each point to be shown on the map. Clicking on each icon shows the coordinates and name of the location.</p>
+<pre><code>for row in eachrow(csv_Data)
+    name = row.brewery
+    lat = row.latitude
+    lon = row.longitude
+    popup = @sprintf &quot;%s\nLat: %.7f\nLong: %.7f&quot; name lat lon;
+    icon_type = &quot;beer&quot;
+    if (name == &quot;Piccadilly Station&quot;)
+        icon_type = &quot;train&quot;
+    end
+    icon = fol.map.Icon(color=&quot;lightgray&quot;,
+    icon_color=&quot;#b5231a&quot;,
+    icon=icon_type, # fetches font-awesome.io symbols
+    prefix=&quot;fa&quot;)
+    fol.map.Marker([lat, lon], icon=icon, popup=popup).add_to(m)
+end
+</code></pre><p>After generating a map, I added a line showing the optimal route. The first thing to note is that Openrouteservice requires the coordinates in (Long,Lat) format, while Folium requires them in (Lat,Long) format. Therefore I swapped the columns of the array prior to calling Folium again. The map is saved out to a html file.</p>
+<pre><code>points_temp = data[&quot;features&quot;][1][&quot;geometry&quot;][&quot;coordinates&quot;]
+points = zeros(size(points_temp))
+points[:,1] = points_temp[:,2]
+points[:,2] = points_temp[:,1]
+fol.PolyLine(points, color=&quot;red&quot;, weight=2.5, opacity=1,name=&quot;Optimal Brewery Crawl&quot;,overlay=true).add_to(m)
+m.add_child(fol.map.LayerControl())
+m.save(&quot;OptimalBreweryCrawl.html&quot;)
+</code></pre><h3 id="the-optimal-manchester-brewery-crawl">The Optimal Manchester Brewery Crawl</h3>
+<p>Now we can run the code and output the optimal route.  The optimal route outputted by the code is</p>
+<pre><code>Piccadilly Station=&gt;Beatnikz Republic Bar=&gt;Northern Monk Refectory=&gt;Thomas St Beerhouse=&gt;Smithfield Market Tavern/Jack in the Box=&gt;Seven Bro7hers=&gt;Marble Arch=&gt;Runaway=&gt;Beatnikz Republic Brewery=&gt;Gaslamp (Pomona Island)=&gt;BrewDog=&gt;Knott (Wander Beyond)=&gt;Gasworks=&gt;Ol=&gt;BrewDog Outpost=&gt;Beer Nouveau=&gt;Manchester Union=&gt;Alphabet Brewing Company=&gt;Cloudwater=&gt;Track/Squawk=&gt;Piccadilly Station
+</code></pre><p>and takes 146 minutes(2 hours and 26 minutes) to walk. The generated map is given below.
+<img src="/images/OptimalBreweryCrawl.png" alt="Optimal Brewery Crawl"></p>
+<h3 id="conclusions">Conclusions</h3>
+<p>This was my first attempt at using Julia and I found it relatively easy to use as the syntax is similar to both Python and MATLAB. The Heuristics worked very well for solving this problem, however it is possible to solve the direct problem using <a href="https://github.com/ericphanson/TravelingSalesmanExact.jl">Mixed Integer Programming</a>. When I tested out this technique I found that the solutions were the same for both methods, however for larger problems (i.e. more locations) it may be that the exact method returns a better solution, but most likely at a greater compuation cost. The code from this post can be found <a href="https://github.com/ncalvertuk/DrunkenSalesman">here</a>.</p>
+
+</div>
+
+
+  </main>
+
+  <footer>
+  <div class="copyright">
+    &copy; Nick Calvert 2020 · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>
+  </div>
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"
+          integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0="
+          crossorigin="anonymous"></script>
+
+  <script src="https://vigilant-euler-ae75f1.netlify.app/js/blog.js"></script>
+
+  
+</body>
+</html>
