@@ -7,6 +7,7 @@ enableInlineShortcodes = true
 summarylength = 10
 enableEmoji = true
 
+
 [params]
 author = "Nick Calvert"
 description = "Personal Website"
@@ -19,7 +20,7 @@ license = "CC BY-SA 4.0"
 licenseURL = "https://creativecommons.org/licenses/by-sa/4.0"
 
 ## Set custom theme color.
-# themeColor = "#fc2803"
+themeColor = "#900C3F"
 
 ## Set custom CSS and/or JS to override site defaults.
 customCss = ["css/blog.css"]
@@ -31,7 +32,7 @@ customJs = ["js/blog.js"]
   icon = "fa-github"
   title = "GitHub"
   url = "https://github.com/ncalvertuk"
-  
+
   [[params.socialIcons]]
   icon = "fa-linkedin"
   title = "Linkedin"
@@ -71,3 +72,5 @@ customJs = ["js/blog.js"]
   noClasses = true # if false, you need to provide you own custom CSS
   style = "monokai"
   tabWidth = 4
+  [minify]
+disableHTML = false
