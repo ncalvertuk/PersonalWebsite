@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Dr Nick Calvert</title>
+    <link>https://vigilant-euler-ae75f1.netlify.app/tags/</link>
+    <description>Recent content in Tags on Dr Nick Calvert</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://vigilant-euler-ae75f1.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dr Nick Calvert</title>
+    <link>https://vigilant-euler-ae75f1.netlify.app/</link>
+    <description>Recent content on Dr Nick Calvert</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 May 2020 13:35:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://vigilant-euler-ae75f1.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hi There</title>
+      <link>https://vigilant-euler-ae75f1.netlify.app/</link>
+      <pubDate>Sat, 30 May 2020 13:35:00 +0100</pubDate>
+      
+      <guid>https://vigilant-euler-ae75f1.netlify.app/</guid>
+      <description>👋 Welcome to my website where I occasionally blog about projects I am attempting, usually involving coding in Python or Julia, Data Science/Analysis, Deep Learning, or anything else that I take an interest in!</description>
+    </item>
+    
+  </channel>
+</rss>
