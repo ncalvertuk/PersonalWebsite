@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hi There on Dr Nick Calvert</title>
+    <title>Dr Nick Calvert</title>
     <link>https://vigilant-euler-ae75f1.netlify.app/</link>
-    <description>Recent content in Hi There on Dr Nick Calvert</description>
+    <description>Recent content on Dr Nick Calvert</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 30 May 2020 13:35:00 +0100</lastBuildDate>
@@ -12,21 +12,12 @@
     
     
     <item>
-      <title>About</title>
-      <link>https://vigilant-euler-ae75f1.netlify.app/about/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      <title>Hi There</title>
+      <link>https://vigilant-euler-ae75f1.netlify.app/</link>
+      <pubDate>Sat, 30 May 2020 13:35:00 +0100</pubDate>
       
-      <guid>https://vigilant-euler-ae75f1.netlify.app/about/</guid>
-      <description>I created this blog as a platform to share my interests and projects that I am working on in my own time.</description>
-    </item>
-    
-    <item>
-      <title>The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries</title>
-      <link>https://vigilant-euler-ae75f1.netlify.app/posts/drunkensalesman/</link>
-      <pubDate>Tue, 28 Apr 2020 13:53:02 +0100</pubDate>
-      
-      <guid>https://vigilant-euler-ae75f1.netlify.app/posts/drunkensalesman/</guid>
-      <description>Introduction Note: In England in 2018/19 there were 1.26 million hospital admissions related to alcohol consumption, making up 7.</description>
+      <guid>https://vigilant-euler-ae75f1.netlify.app/</guid>
+      <description>👋 Welcome to my website where I occasionally blog about projects I am attempting, usually involving coding in Python or Julia, Data Science/Analysis, Deep Learning, or anything else that I take an interest in!</description>
     </item>
     
   </channel>
