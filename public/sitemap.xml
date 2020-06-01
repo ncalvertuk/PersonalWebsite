@@ -8,8 +8,18 @@
   </url>
   
   <url>
-    <loc>https://vigilant-euler-ae75f1.netlify.app/</loc>
+    <loc>https://vigilant-euler-ae75f1.netlify.app/posts/</loc>
     <lastmod>2020-05-30T13:35:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vigilant-euler-ae75f1.netlify.app/about/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vigilant-euler-ae75f1.netlify.app/posts/drunkensalesman/</loc>
+    <lastmod>2020-04-28T13:53:02+01:00</lastmod>
   </url>
   
   <url>
