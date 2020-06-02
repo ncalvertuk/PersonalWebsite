@@ -1,7 +1,7 @@
 +++
-title: Dr Nick Calvert
-date: 2020-05-30T13:35:00+01:00
-draft: false
+title = "Dr Nick Calvert"
+date = "2020-05-30T13:35:00+01:00"
+draft = false
 +++
 Hi There :wave: Welcome to my website where I occasionally blog about projects I am attempting, usually involving coding in Python or Julia, Data Science/Analysis, Deep Learning, or anything else that I take an interest in!
 

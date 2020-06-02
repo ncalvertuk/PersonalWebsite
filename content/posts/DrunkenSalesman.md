@@ -1,7 +1,7 @@
 +++
-title: "The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries"
-date: 2020-04-28T13:53:02+01:00
-draft: false
+title= "The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries"
+date= "2020-04-28T13:53:02+01:00"
+draft= false
 +++
 
 ### Introduction
