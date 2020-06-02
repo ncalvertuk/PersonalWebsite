@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>This is my second post</title>
+      <link>https://vigilant-euler-ae75f1.netlify.app/posts/second/</link>
+      <pubDate>Tue, 02 Jun 2020 10:23:09 +0100</pubDate>
+      
+      <guid>https://vigilant-euler-ae75f1.netlify.app/posts/second/</guid>
+      <description>This is some content</description>
+    </item>
+    
+    <item>
       <title>The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries</title>
       <link>https://vigilant-euler-ae75f1.netlify.app/posts/drunkensalesman/</link>
       <pubDate>Tue, 28 Apr 2020 13:53:02 +0100</pubDate>

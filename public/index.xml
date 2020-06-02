@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hi There on Dr Nick Calvert</title>
+    <title>Welcome on Dr Nick Calvert</title>
     <link>https://vigilant-euler-ae75f1.netlify.app/</link>
-    <description>Recent content in Hi There on Dr Nick Calvert</description>
+    <description>Recent content in Welcome on Dr Nick Calvert</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 30 May 2020 13:35:00 +0100</lastBuildDate>
     
 	<atom:link href="https://vigilant-euler-ae75f1.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>This is my second post</title>
+      <link>https://vigilant-euler-ae75f1.netlify.app/posts/second/</link>
+      <pubDate>Tue, 02 Jun 2020 10:23:09 +0100</pubDate>
+      
+      <guid>https://vigilant-euler-ae75f1.netlify.app/posts/second/</guid>
+      <description>This is some content</description>
+    </item>
     
     <item>
       <title>About</title>
