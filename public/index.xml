@@ -12,15 +12,6 @@
     
     
     <item>
-      <title>This is my second post</title>
-      <link>https://vigilant-euler-ae75f1.netlify.app/posts/second/</link>
-      <pubDate>Tue, 02 Jun 2020 10:23:09 +0100</pubDate>
-      
-      <guid>https://vigilant-euler-ae75f1.netlify.app/posts/second/</guid>
-      <description>This is some content</description>
-    </item>
-    
-    <item>
       <title>About</title>
       <link>https://vigilant-euler-ae75f1.netlify.app/about/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
