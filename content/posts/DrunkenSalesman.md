@@ -1,8 +1,8 @@
----
++++
 title: "The Drunken Salesman: Applying the Travelling Salesperson Problem to Manchester Breweries"
 date: 2020-04-28T13:53:02+01:00
 draft: false
----
++++
 
 ### Introduction
 __Note:__ In England in 2018/19 there were 1.26 million hospital admissions related to alcohol consumption, making up 7.4% of all hospital admissions. For more facts and support about alcohol check out the dedicated [NHS website](https://www.nhs.uk/live-well/alcohol-support/) and please drink responsibly!
