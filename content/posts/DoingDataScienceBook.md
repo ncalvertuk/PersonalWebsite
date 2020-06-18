@@ -1,5 +1,5 @@
 +++
-title = "Binderising Exercises from Doing Data Science Book"
+title = "Binderising Exercises from the Doing Data Science Book"
 date = "2020-06-18T13:33:0+01:00"
 draft = false
 +++
@@ -30,4 +30,11 @@ The next issue (fortunately also the final issue!) was related to the ```PyCall`
 ```
 xlrd==1.1.0
 ```
-Further Python packages can be included in the same manner. After including this file the Binder compiled with no problems, although it did take quite a long time! The link to Binder for the entire repo can be found here:  [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master) and the links to each individual notebook are given at the beginning of each section below.
+Further Python packages can be included in the same manner. After including this file the Binder compiled with no problems, although it did take quite a long time! The link to Binder for the entire repo can be found here:  [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master)
+
+Links to each individual notebook are also given at the beginning of each section below.
+
+### Chapter 2 - Exploratory Data Analysis
+
+Binder Link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master?filepath=notebooks%2FChapter2_RollingSales)
+__Note:__ Prior to running the first cell you have to ensure that the Kernel is set to Julia rather than Python.
