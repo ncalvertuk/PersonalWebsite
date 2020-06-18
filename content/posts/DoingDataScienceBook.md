@@ -36,7 +36,7 @@ Links to each individual notebook are also given at the beginning of each sectio
 
 ### Chapter 2 - Exploratory Data Analysis
 
-Binder Link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master?filepath=notebooks%2FChapter2_RollingSales.ipynb)
+Binder Link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master?filepath=Chapter2_RollingSales.ipynb)
 __Note:__ Prior to running the first cell you have to ensure that the Kernel is set to Julia rather than Python.
 
 The first exercise in the book is to perform some basic Exploratory Data Analysis(EDA) on New York Rolling Sales data containing housing sales data over a 12 month period. The data can be downloaded [here](https://github.com/oreillymedia/doing_data_science) and specifically I will be briefly looking at the `rollingsales_manhattan.xls` data.. I imported the data using [QueryVerse.jl](https://github.com/queryverse/Queryverse.jl) which is a meta-package containing a number of packages useful for data analysis. I have some experience of using Pandas in Python and there is a reasonable amount of overlap with the functionality used by QueryVerse so that made things a little bit easier when getting started.
@@ -54,7 +54,7 @@ The rest of the notebook explores the sale prices of the properties for differen
 ![SalesPerMonth](/images/SalesPerMonth.svg)
 
 ### Chapter 3 - Basic Linear Regression
-Binder Link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master?filepath=notebooks%2FChapter3_Regression.ipynb)
+Binder Link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master?filepath=Chapter3_Regression.ipynb)
 __Note:__ Prior to running the first cell you have to ensure that the Kernel is set to Julia rather than Python.
 
 The second exercise I attempted was the basic linear regression exercise in Chapter 3 of the book. The outline was to simulate some data, add noise and then try to recover the coefficients using linear regression.
@@ -201,3 +201,5 @@ One of the main learning points for me was to explore different plotting techniq
 end
 ```
 ![4x4Plot](/images/4x4Plot.png)
+
+Some tweaks are needed on the plotting, in particular the limits need changing slightly as some of the scatter points are slightly cut off and the x ticks may also need some editing. The rest of my analysis can be found in the notebook.
