@@ -1,6 +1,6 @@
 +++
 title = "Binderising Exercises from the Doing Data Science Book"
-date = "2020-06-18T13:33:0+01:00"
+date= "2020-04-28T13:53:02+01:00"
 draft = false
 +++
 ### Introduction
