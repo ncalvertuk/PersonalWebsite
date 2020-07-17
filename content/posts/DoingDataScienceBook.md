@@ -200,7 +200,7 @@ One of the main learning points for me was to explore different plotting techniq
     end
 end
 ```
-![4x4Plot](/images/4x4Plot.png)
+![4x4Plot](/images/DoingDataScienceBook/4x4Plot.png)
 
 Some tweaks are needed on the plotting, in particular the limits need changing slightly as some of the scatter points are slightly cut off and the x ticks may also need some editing. The rest of my analysis can be found in the notebook.
 
@@ -230,7 +230,9 @@ mach = fit!(machine(hot, X))
 X = transform(mach, X)
 schema(X)
 ```
-This code converts the variable ```X2```, which was my neighbourhood variable, to a Multiclass and then implements the one hot encoding.
+This code converts the variable ```X2```, which was my neighbourhood variable, to a Multiclass and then implements the one hot encoding. A residual histogram is given below, note that the residuals are the log values as the outcome variable was the log of the sale price.
+
+![before](/images/DoingDataScienceBook/hist_resid_ch4.png)
 
 The second part of the exercise uses a K-Nearest Neighbours classifier to classify the neighbourhood based on the latitude and longitude values. K-Nearest Neighbours is a simple algorithm and I have used it before, however the challenging part of this exercise was to get the coordinates and clean the data to ensure the coordinates were correct. 
 
