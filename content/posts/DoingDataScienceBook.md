@@ -262,7 +262,9 @@ using ProgressMeter
   end
 end
 ```
-I then filtered out those addresses that lay outside of the Manhattan boundary. The before and after plots of the coordinates are given below.
+I then filtered out those addresses that lay outside of the Manhattan boundary. Here's a map of the coordinates before...
 
 ![before](/images/before.png)
+... and after filtering out the coordinates.
 ![after](/images/after.png)
+Implementing the KNN was relatively straightforward following this, and I tested out how changing the value of k affects the accuracy. Unfortunately, the API licence restricts the caching of the coordinates so I have not saved them to the notebook. You will also need to download an API key to run the notebook.
