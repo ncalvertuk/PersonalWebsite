@@ -203,3 +203,66 @@ end
 ![4x4Plot](/images/4x4Plot.png)
 
 Some tweaks are needed on the plotting, in particular the limits need changing slightly as some of the scatter points are slightly cut off and the x ticks may also need some editing. The rest of my analysis can be found in the notebook.
+
+### Chapter 3 - Basic Machine Learning
+Binder Link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master?filepath=Chapter3_BasicML.ipynb)
+__Note:__ Prior to running the first cell you have to ensure that the Kernel is set to Julia rather than Python.
+
+Chapter 3 then leads on to an example of implementing a couple of basic ML algorithms on the Manhattan rolling sales data: Linear Regression and K-Nearest Neighbours. We start with trying to predict the sale price using the total area of the properties, before introducing a number of other features to predict the price including neighbourhood, building type, etc.
+
+To perform the Linear Regression I used the [MLJ](https://alan-turing-institute.github.io/MLJ.jl/stable/) package, which provides a common interface for a number of machine learning tools. In particular it brings together a number of models from a wide range of packages. The nice thing about MLJ is that it automates a lot of the processes for you, for example instantiating the model and then evaluating it will perform cross-validation, here's my code for a simple regression model.
+```
+D_fam_sub = D_fam |> @map({X = log(_.GROSSSQUAREFEET),Y = log(_.SALEPRICE)}) |> DataFrame
+y,X = unpack(D_fam_sub,==(:Y),==(:X);:X=>Continuous,:Y=>Continuous)
+X = MLJ.table(reshape(X,291,1))
+@load LinearRegressor pkg="MLJLinearModels"
+model = LinearRegressor(fit_intercept = false)
+LR = machine(model, X, y)
+rsq(y_hat,y) = 1 - sum((y .- y_hat).^2)/sum((y.-mean(y)).^2)
+evaluate!(LR,measure=[l2,rms,rmslp1,rsq])
+```
+Introducing more variables improved the prediction model, however problems were introduced when using the neighbourhood. For example, some of the residuals were very large when fitting on the test data. This may have been caused by the low number of data points belonging to certain neighbourhoods. One way of overcoming this may be to combine neighbourhoods to larger geographical areas to increase the number of data points. In order to introduce the neighbourhoods into the model, I converted the feature to a ```Multiclass``` categorical variable and used one-hot encoding.
+```
+coerce!(X,:X2=>Multiclass)
+schema(X)
+hot = OneHotEncoder(ordered_factor=false);
+mach = fit!(machine(hot, X))
+X = transform(mach, X)
+schema(X)
+```
+This code converts the variable ```X2```, which was my neighbourhood variable, to a Multiclass and then implements the one hot encoding.
+
+The second part of the exercise uses a K-Nearest Neighbours classifier to classify the neighbourhood based on the latitude and longitude values. K-Nearest Neighbours is a simple algorithm and I have used it before, however the challenging part of this exercise was to get the coordinates and clean the data to ensure the coordinates were correct. 
+
+The first step was to clean the address values, many of which contained a large amount of white space. This can be performed easily using ```Query.jl```.
+```
+D_sub = D_sub |> @mutate(LONGADDRESS  = replace.(_.ADDRESS,"  " => "")) |> @mutate(LONGADDRESS  = string(_.LONGADDRESS,", New York, NY, ", Int(_.ZIPCODE), " US")) |> @mutate(LONGADDRESS  = replace.(_.LONGADDRESS," , " => ", ")) |> DataFrame
+```
+This code replaces double white spaces with single spaces, adds in the city, state, and zip code to the address and removes any white space prior to commas. Subsequently, I had to get the coordinates of the addresses, and to do this I used [LocationIQ](https://locationiq.com/). You can sign up for a free API key on their website, however this restricts you to 60 requests per minute. For my 1450 addresses, this took over 30 minutes but I just left it running in the background. There may be other, faster, alternatives to getting the coordinates. I then mapped the coordinates to check that the coordinates were okay, and found that some of them were outside of Manhattan. To map the coordinates I used the ```us-10m``` dataset from ```VegaDatasets```, which contains the state boundaries at the 1:10,000,000 scale. To set the parameters of the map I used the [Vega Projection Editor](https://vega.github.io/vega/docs/projections/) which was very handy!
+
+Some of the coordinates were in upstate New York and others were close to Manhattan but not quite on the island, so I had to figure out how to filter these data points out. To do this I downloaded the boundary of New York City Boroughs from [NYC OpenData](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm) (It is important to note here that the boundary is defined by 34 separate polygons as Manhattan includes a number of islands - e.g. the Statue of Liberty is on Liberty Island which is included as a separate polygon). I then used the [Luxor](https://github.com/JuliaGraphics/Luxor.jl) package to check whether each set of coordinates returned by LocationIQ was inside of the boundaries.
+```
+using JSON
+borofile = open("Borough Boundaries.geojson")
+headers = JSON.parse(read(borofile,String))
+println(headers["features"][3]["properties"])
+manh_boundary = headers["features"][3]["geometry"]["coordinates"]
+D_adds[!,:MANHATTAN] = falses(size(D_adds)[1]);
+nrs = size(D_adds)[1];
+using Luxor
+using ProgressMeter
+@showprogress for region in manh_boundary
+  bnd = [Point(p[1],p[2]) for p in region[1]];
+  for i in range(1,stop=nrs)
+    coord = Point(D_adds[i,:LONGITUDE],D_adds[i,:LATITUDE]);
+    isin = isinside(coord,bnd);
+    if (isin==true)
+      D_adds[i,:MANHATTAN] = true
+    end
+  end
+end
+```
+I then filtered out those addresses that lay outside of the Manhattan boundary. The before and after plots of the coordinates are given below.
+
+![before](/images/before.png)
+![after](/images/after.png)
