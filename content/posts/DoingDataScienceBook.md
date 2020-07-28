@@ -270,3 +270,28 @@ I then filtered out those addresses that lay outside of the Manhattan boundary. 
 ... and after filtering out the coordinates.
 ![after](/images/DoingDataScienceBook/after.png)
 Implementing the KNN was relatively straightforward following this, and I tested out how changing the value of k affects the accuracy. Unfortunately, the API licence restricts the caching of the coordinates so I have not saved them to the notebook. You will also need to download an API key to run the notebook.
+
+### Chapter 4 - Naive Bayes
+A separate post on Naive Bayes is coming shortly!
+
+### Chapter 5 - Logistic Regression
+Binder Link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ncalvertuk/DoingDataScienceNbs_Julia/master?filepath=Chapter5_LogisticRegression.ipynb)
+
+Chapter 5 introduces logistic regression, applying the method to classify whether users would buy a product - or maybe click on an ad. The chapter was not very clear about what the data pertained to, it mentioned a lot about users clicking on ads in the preceding text however the dataset column was entitled ```:y_buy```. Unfortunately the headers were not explained on the github readme or in the book. Nevertheless, let's crack on.
+
+Logistic Regression relies on the inverse logit function
+
+$$P(t)= \text{logit}^{-1}(t) = \frac{1}{1+e^{-t}} = \frac{e^{t}}{1+e^{t}},$$
+
+which maps values from the real line $\mathbb R$ to the interval $[0,1]$. We'll only consider the binary case here, where our response variable/class $c_{i} = 1$ or $c_{i} = 0$. We start with 
+$$P(c_{i}|x_{i}) = [\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})]^{c_{i}}[1-\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})]^{(1-c_{i})},$$
+here $x_{i}$ is the vector of features of user $i$ and $c_{i}$ is the class ($1$ or $0$). We then have two possibilities:
+$$P(c_{i}=1|x_{i}) = [\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})],$$
+and
+$$P(c_{i}=0|x_{i}) = [1-\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})].$$
+To make this a linear model in the outcomes $c_{i}$ we can take the log of the odds ratio:
+$$\frac{\log(P(c_{i}=1|x_{i}))}{1-P(c_{i}=1|x_{i})} = \alpha + \beta^{\text{T}}x_{i}.$$
+We note that the logit function is defined as
+$$\text{logit}(p) =  \log(\frac{p}{1-p} = \log(p) - \log(1-p),$$
+and therefore
+$$logit(P(c_{i}=1|x_{i})) = \alpha + \beta^{\text{T}}x_{i}.$$
