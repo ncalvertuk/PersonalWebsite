@@ -290,7 +290,7 @@ $$P(c_{i}=1|x_{i}) = [\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})],$$
 and
 $$P(c_{i}=0|x_{i}) = [1-\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})].$$
 To make this a linear model in the outcomes $c_{i}$ we can take the log of the odds ratio:
-$$\frac{\log(P(c_{i}=1|x_{i}))}{\log(1-P(c_{i}=1|x_{i}))} = \alpha + \beta^{\text{T}}x_{i}.$$
+$$\frac{\log(P(c_{i}=1|x_{i}))}{\log\left(1-P(c_{i}=1|x_{i}))}\right) = \alpha + \beta^{\text{T}}x_{i}.$$
 We note that the logit function is defined as
 $$\text{logit}(p) =  \log(\frac{p}{1-p} = \log(p) - \log(1-p),$$
 and therefore
@@ -301,3 +301,26 @@ Training the model relies on estimating the parameters $\alpha$ and $\beta$. To 
 $$\Theta_{\text{MLE}} = \text{argmax}_{\Theta} \prod_{i=1}^{n}P(X_{i}|\Theta).$$
 Setting $p_{i} = 1/\left(1+e^{-(\alpha+\beta^{\text{T}}x_{i})}\right)$, then $P(X_{i}|\Theta) = p_{i}^{c_{i}}(1-p_{i})^{(1-c_{i})}$, and
 $$\Theta_{\text{MLE}} = \text{argmax}_{\Theta} \prod_{i=1}^{n}p_{i}^{c_{i}}(1-p_{i})^{(1-c_{i})}.$$
+
+To evaluate the model, I calculate the AUC of the ROC curve and used 10-fold cross-validation.
+
+In the book, this exercise came with a large amount of R code that I translated to Julia. This included implementing the cross-validation, calculating the AUC, etc. I trained the models using the ```GLM``` library
+```
+mod = glm(f, train, Binomial(), LogitLink());
+y_pred = StatsBase.predict(mod,test);
+```
+as well as using the ```MLJ``` library
+```
+logreg = @load LogisticClassifier pkg="MLJLinearModels";
+logreg_mach = machine(logreg, X, categorical(y));
+train, test = partition(eachindex(y), 0.65, shuffle=true, rng=1234);
+MLJ.fit!(logreg_mach, rows=train);
+```
+One thing to take into accoun when using ```MLJ``` is that the data must be in the correct Scientific Type before training the model. In this example I had to coerce all of the integer values to be continuous and the label to be of type ```Multiclass```. This can be done using 
+```
+coerce!(df_mlj,:y_buy => Multiclass);
+coerce!(df_mlj,Count => Continuous);
+```
+where ```df_mlj``` is the data frame containing the data. Implementing the code manually and using ```MLJ``` allowed me to understand what is happening 'behind the scenes' while ensuring I know how to use cutting edge libraries.
+
+The classification results suggested an AUC of approximately 0.81 was achievable using a single predictor, and this increased to approximately 0.86 when introducing a small number of predictors. In the brief analysis I performed in the notebook it appeared that the ```:last_sv``` feature was the most important for achieving greater model performance. I did try calculate Pearsons correlation coefficient for each feature, however this did not provide a good estimate for which variables may be omitted. I'd like to explore the feature selection further in the future.
