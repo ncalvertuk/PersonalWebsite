@@ -285,13 +285,19 @@ $$P(t)= \text{logit}^{-1}(t) = \frac{1}{1+e^{-t}} = \frac{e^{t}}{1+e^{t}},$$
 
 which maps values from the real line $\mathbb R$ to the interval $[0,1]$. We'll only consider the binary case here, where our response variable/class $c_{i} = 1$ or $c_{i} = 0$. We start with 
 $$P(c_{i}|x_{i}) = [\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})]^{c_{i}}[1-\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})]^{(1-c_{i})},$$
-here $x_{i}$ is the vector of features of user $i$ and $c_{i}$ is the class ($1$ or $0$). We then have two possibilities:
+here $x_{i}$ is the vector of features of user $i$. We then have two possibilities:
 $$P(c_{i}=1|x_{i}) = [\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})],$$
 and
 $$P(c_{i}=0|x_{i}) = [1-\text{logit}^{-1}(\alpha + \beta^{\text{T}}x_{i})].$$
 To make this a linear model in the outcomes $c_{i}$ we can take the log of the odds ratio:
-$$\frac{\log(P(c_{i}=1|x_{i}))}{1-P(c_{i}=1|x_{i})} = \alpha + \beta^{\text{T}}x_{i}.$$
+$$\frac{\log(P(c_{i}=1|x_{i}))}{\log(1-P(c_{i}=1|x_{i}))} = \alpha + \beta^{\text{T}}x_{i}.$$
 We note that the logit function is defined as
 $$\text{logit}(p) =  \log(\frac{p}{1-p} = \log(p) - \log(1-p),$$
 and therefore
-$$logit(P(c_{i}=1|x_{i})) = \alpha + \beta^{\text{T}}x_{i}.$$
+$$\text{logit}(P(c_{i}=1|x_{i})) = \alpha + \beta^{\text{T}}x_{i}.$$
+
+Training the model relies on estimating the parameters $\alpha$ and $\beta$. To do this we define the likelihood function $L(\Theta|X_{1},X_{2},...,X_{n}) = P(X|\Theta) = P(X_{1}|\Theta)...P(X_{n}|\Theta),$ where $\Theta = {\alpha,\beta}$ and our users are independent. We then calculate the maximum likelihood estimator $\Theta_{\text{MLE}}$
+
+$$\Theta_{\text{MLE}} = \text{argmax}_{\Theta} \prod_{i=1}^{n}P(X_{i}|\Theta).$$
+Setting $p_{i} = 1/\left(1+e^{-(\alpha+\beta^{\text{T}}x_{i})}\right)$, then $P(X_{i}|\Theta) = p_{i}^{c_{i}}(1-p_{i})^{(1-c_{i})}$, and
+$$\Theta_{\text{MLE}} = \text{argmax}_{\Theta} \prod_{i=1}^{n}p_{i}^{c_{i}}(1-p_{i})^{(1-c_{i})}.$$
