@@ -1,7 +1,7 @@
 ---
 title: "Analysis of British EIHL Ice Hockey Shot Data"
-date: 2020-09-02T13:45:35+01:00
-draft: true
+date: 2020-09-28T09:43:00+01:00
+draft: false
 ---
 
 ### Introduction
