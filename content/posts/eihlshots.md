@@ -5,12 +5,12 @@ draft: false
 ---
 
 ### Introduction
-I'm an ice hockey fan and I follow the [Elite Ice Hockey League (EIHL)](https://www.eliteleague.co.uk), the professional Ice Hockey league in the UK comprising of teams from all 4 nations of the UK. During the curtailed 2019-20 season, the EIHL started to record more advanced stats during each game. Previously, the only stats recorded were number of shots on target, number of penalty minutes accrued, who scored the goals and who provided the assists to each goal  - each goal can have up to 2 assists: the player who passed the puck to the goalscorer (primary assist) and the player who passed the puck to the primary assist (secondary assist).
+The [Elite Ice Hockey League (EIHL)](https://www.eliteleague.co.uk) is the professional Ice Hockey league in the UK comprising of teams from all 4 nations of the UK. During the curtailed 2019-20 season, the EIHL started to record more advanced stats during each game. Previously, the only stats recorded were number of shots on target, number of penalty minutes accrued, who scored the goals and who provided the assists to each goal  - each goal can have up to 2 assists: the player who passed the puck to the goalscorer (primary assist) and the player who passed the puck to the primary assist (secondary assist).
 
-The new stats recorded were the players who were on the ice at the time of each goal and also a map of all shot attempts. I'll be taking a look at the shot data, performing some exploratory data analysis exploring where teams take shots from, what positions goals are scored from, and where rebounds are generated - rebounds are often more difficult for goaltenders to save as they tend to be out of position after saving the initial shot. The EIHL [website](https://www.eliteleague.co.uk) only presents the raw shot map for each game, as well as some basic statistics about the where shots are taken, however this is only performed at the individual game level.
+The new stats recorded were the players who were on the ice at the time of each goal and also a map of all shot attempts. I'll be taking a look at the shot data, performing some exploratory data analysis exploring where teams take shots from, what positions goals are scored from, and where rebounds are generated - rebounds are often more difficult for goaltenders to save as they tend to be out of position after saving the initial shot. I'll also build a shot quality model. The EIHL [website](https://www.eliteleague.co.uk) only presents the raw shot map for each game, as well as some basic statistics about the where shots are taken, however this is only performed at the individual game level.
 
 There are 2 concerns I had about the shot data before working with it:
-1. My understanding is that the data is recorded by someone sat in the stands with a tablet - this could lead to errors in the data and I am not sure whether video footage is used to correct this data after a game is complete (my assumption is that it is not used)
+1. My understanding is that the data is recorded by someone sat in the stands with a tablet - this could lead to errors in the data and I am not sure whether video footage is used to correct this data after a game is complete (my assumption is that it is not used). It's tough job trying to manually count shots as they happen as Ice Hockey is a fast-paced sport.
 2. Different arenas have different sized ice rinks. The size of the ice surface in Manchester is notoriously small (57 m x 26 m), while others are much larger (60 m x 30 m). This may not seem like much, however it does have an effect on the games and it may mean that the shot distribution is different in each arena. Olympic standard rinks are 60 m x 30 m, while rinks used in the NHL (USA & Canada) are 200 ft x 85 ft (61 x 26 m). After consulting [The Hockey Forum](www.thehockeyforum.co.uk) it appears that Coventry (58 m x 26 m) & Fife (195 ft x 95 ft), as well as the aforementioned Manchester, have different sized rinks to the rest of the teams which all have Olympic sized ice.
 
 ### Getting the Data
@@ -352,7 +352,7 @@ I used Logistic Regression and a Random Forest for the models, but there were ot
 
 ### Getting the data & Scripts
 
-I have made the Python notebooks available on my github here. I have not included the raw shot or gamesheet data, however I have included the code to scrape it - note that it will take some time as I included a pause to reduce the number of calls to the EIHL websites per second.
+I have made the Python notebooks available on my github [here](https://github.com/ncalvertuk/EIHLShots). I have not included the raw shot or gamesheet data, however I have included the code to scrape it - note that it will take some time as I included a pause to reduce the number of calls to the EIHL websites per second.
 
 ### References
 Elite League Website: www.eliteleague.co.uk
